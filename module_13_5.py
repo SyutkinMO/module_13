@@ -1,15 +1,19 @@
-# ---------------------Машина состояний---------------------
+# ---------------------Клавиатура кнопок---------------------
 
 
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 import asyncio
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.dispatcher import FSMContext
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-api = " "
+api = ""
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
+kb = ReplyKeyboardMarkup(resize_keyboard=True) # инициализируем клавиатуру
+button_info = KeyboardButton (text = 'Информация') # инициализация кнопки 'Информация'
+button_calculate = KeyboardButton (text = 'Рассчитать') # инициализация кнопки 'Рассчитать'
+kb.row(button_info, button_calculate) # добавление кнопок на клавиатуру
 
 
 class UserState(StatesGroup):  # класс UserState наследованный от StatesGroup.
@@ -19,7 +23,7 @@ class UserState(StatesGroup):  # класс UserState наследованный
     weight = State()
 
 
-@dp.message_handler(text='Calories')  # реагирует на текст 'Calories'
+@dp.message_handler(text='Рассчитать')  # теперь реагирует на текст 'Рассчитать' на кнопке
 async def set_age(message):
     await message.answer('Введите свой возраст')
     await UserState.age.set()
@@ -62,14 +66,11 @@ async def send_calories(message, state):
 
 @dp.message_handler(commands=['start'])
 async def start(message):
-    print('Привет! Я бот помогающий твоему здоровью.')
-    await message.answer(
-        'Привет! Я бот помогающий твоему здоровью. Введите команду Calories для подсчета суточной нормы калорий')
+    await message.answer('Привет! Я бот, помогающий твоему здоровью.', reply_markup = kb)
 
 
 @dp.message_handler()
 async def all_massages(message):
-    print('Введите команду /start, чтобы начать общение.')
     await message.answer('Введите команду /start, чтобы начать общение.')
 
 
