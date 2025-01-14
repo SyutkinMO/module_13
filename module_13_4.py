@@ -62,14 +62,12 @@ async def send_calories(message, state):
 
 @dp.message_handler(commands=['start'])
 async def start(message):
-    print('Привет! Я бот помогающий твоему здоровью.')
     await message.answer(
         'Привет! Я бот помогающий твоему здоровью. Введите команду Calories для подсчета суточной нормы калорий')
 
 
 @dp.message_handler()
 async def all_massages(message):
-    print('Введите команду /start, чтобы начать общение.')
     await message.answer('Введите команду /start, чтобы начать общение.')
 
 
