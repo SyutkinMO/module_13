@@ -10,7 +10,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from module_14_4_CRUD import *
 
 # ----------------------SetUp параметры бота---------------------
-api = "7583741296:AAGKvr4Mc9kL5cL9JlT6XN8A1AQfGHXnz08"
+api = ""
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
